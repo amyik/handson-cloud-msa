@@ -17,3 +17,7 @@ spec:
         backend:
           serviceName: eshop-backend
           servicePort: 8090
+      - path: /static
+        backend:
+          serviceName: eshop-backend
+          servicePort: 8090          
