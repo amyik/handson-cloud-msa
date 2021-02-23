@@ -13,7 +13,7 @@ spec:
       - path: /?(.*)
         backend:
           serviceName: eshop-frontend
-          servicePort: 8080
+          servicePort: 80
       - path: /api/?(.*)
         backend:
           serviceName: eshop-backend
