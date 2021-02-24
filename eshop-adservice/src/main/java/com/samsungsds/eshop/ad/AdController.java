@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 
 @RestController
+@RequestMapping(value="/api/ads")
 public class AdController {
     private Logger logger = LoggerFactory.getLogger(AdController.class);
     private final AdRepository adRepository;
