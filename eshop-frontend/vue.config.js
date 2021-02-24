@@ -4,6 +4,7 @@ module.exports = {
         "^/": {
           target: "http://localhost:8090"
         }
-    }
+    },
+    disableHostCheck: true
   }
 }
