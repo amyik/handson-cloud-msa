@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/checkouts/shippings")
+@RequestMapping(value="/api/checkouts/shippings")
 public class ShippingController {
     private final Logger logger = LoggerFactory.getLogger(ShippingController.class);
     private final ShippingService shippingService;
