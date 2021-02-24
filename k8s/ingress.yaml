@@ -12,13 +12,8 @@ spec:
       - path: /
         backend:
           serviceName: eshop-frontend
-<<<<<<< HEAD
-          servicePort: 80
-      - path: /api/?(.*)
-=======
           servicePort: 8080
       - path: /api
->>>>>>> make-adservice
         backend:
           serviceName: eshop-backend
           servicePort: 8090
