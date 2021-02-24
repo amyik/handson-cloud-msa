@@ -12,15 +12,15 @@ spec:
       - path: /
         backend:
           serviceName: eshop-frontend
-          servicePort: 80
-      - path: /static
-        backend:
-          serviceName: eshop-backend
-          servicePort: 8090          
+          servicePort: 8080
       - path: /api
         backend:
           serviceName: eshop-backend
           servicePort: 8090
+      - path: /static
+        backend:
+          serviceName: eshop-backend
+          servicePort: 8090    
       - path: /api/carts
         backend:
           serviceName: eshop-cartservice
