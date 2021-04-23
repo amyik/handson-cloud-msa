@@ -2,12 +2,18 @@ apiVersion: skaffold/v2beta10
 kind: Config
 build:
   artifacts:
+    - image: eshop-productservice
+      context: eshop-productservice
     - image: eshop-cartservice
       context: eshop-cartservice
       jib:
         type: gradle
     - image: eshop-backend
       context: eshop-backend
+      jib:
+        type: gradle
+    - image: eshop-adservice
+      context: eshop-adservice
       jib:
         type: gradle
     - image: eshop-frontend

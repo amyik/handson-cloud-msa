@@ -1,27 +1,40 @@
 package com.samsungsds.eshop.product;
 
-import com.google.common.collect.Iterables;
-
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class ProductService {
-  private final ProductRepository productRepository;
+  private final RestTemplate restTemplate;
 
-  public ProductService(ProductRepository productRepository) {
-    this.productRepository = productRepository;
+  @Value("${url.productservice}")
+  private String productServiceUrl;
+
+  public ProductService(final RestTemplate restTemplate) {
+    this.restTemplate = restTemplate;
   }
-  
+
   public Products fetchProducts() {
-    return new Products(Iterables.toArray(productRepository.findAll(), Product.class));
+    String fetchProductsUrl = productServiceUrl + "/api/products";
+    ResponseEntity<Products> productsResponse = restTemplate.getForEntity(fetchProductsUrl, Products.class);
+    return productsResponse.getBody();
   }
 
   public Product fetchProductById(final String id) {
-    return productRepository.findById(id).orElse(null);
+    String fetchProductsByIdUrl = productServiceUrl + "/api/products/" + id;
+    ResponseEntity<Product> productResponse = restTemplate.getForEntity(fetchProductsByIdUrl, Product.class);
+    return productResponse.getBody();
   }
 
   public Products fetchProductsByIds(final String[] ids) {
-    return new Products(Iterables.toArray(productRepository.findAllByIdIn(ids), Product.class));
+    String idsString = Stream.of(ids).collect(Collectors.joining(","));
+    String fetchProductsByIdsUrl = productServiceUrl + "/api/products" + "?ids=" + idsString;
+    ResponseEntity<Products> productsResponse = restTemplate.getForEntity(fetchProductsByIdsUrl, Products.class);
+    return productsResponse.getBody();
   }
-
 }
