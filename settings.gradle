@@ -1,0 +1,5 @@
+rootProject.name = 'eshop'
+
+include 'eshop-backend'
+include 'eshop-cartservice'
+include 'common'

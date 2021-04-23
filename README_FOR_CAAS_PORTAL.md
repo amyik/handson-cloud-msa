@@ -14,7 +14,7 @@
 - cmd
   ``` bash
   $ skaffold dev
-  $ ingress-nginx-controller port-forward...
+  $ kubectl port-forward -n ingress-nginx ingress-nginx-controller-XXXXXXXXXXX 8080:80
   ```
   
   
