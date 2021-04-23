@@ -12,23 +12,23 @@ spec:
         app: redis
     spec:
       containers:
-        - name: redis
-          image: redis:5.0-alpine
-          ports:
-            - containerPort: 6379
-          volumeMounts:
-            - mountPath: /data
-              name: redis-data
-          resources:
-            limits:
-              memory: 512Mi
-              cpu: 500m
-            requests:
-              cpu: 300m
-              memory: 384Mi
+      - name: redis
+        image: redis:5.0-alpine
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - mountPath: /data
+          name: redis-data
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: 500m
+          requests:
+            cpu: 300m
+            memory: 384Mi
       volumes:
-        - name: redis-data
-          emptyDir: {}
+      - name: redis-data
+        emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
@@ -39,4 +39,4 @@ spec:
   selector:
     app: redis
   ports:
-    - port: 6379
+  - port: 6379
