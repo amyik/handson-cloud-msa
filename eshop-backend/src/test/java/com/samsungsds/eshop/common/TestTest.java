@@ -8,8 +8,6 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.web.client.RestTemplate;
 
-import static org.mockito.Mockito.when;
-
 @ExtendWith(SpringExtension.class)
 public class TestTest {
 

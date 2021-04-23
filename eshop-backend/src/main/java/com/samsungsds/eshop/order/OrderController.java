@@ -16,6 +16,7 @@ import com.samsungsds.eshop.shipping.ShippingService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,17 +27,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/api/checkouts")
 public class OrderController {
     private final Logger logger = LoggerFactory.getLogger(OrderController.class);
+
+    private final RabbitTemplate rabbitTemplate;
     private final OrderService orderService;
     private final ShippingService shippingService;
     private final CartService cartService;
     private final PaymentService paymentService;
     private final ProductService productService;
 
-    public OrderController(final OrderService orderService, 
-    final ShippingService shippingService,
-    final  PaymentService paymentService,
-    final CartService cartService,
-    final ProductService productService) {
+    public OrderController(RabbitTemplate rabbitTemplate, final OrderService orderService,
+                           final ShippingService shippingService,
+                           final PaymentService paymentService,
+                           final CartService cartService,
+                           final ProductService productService) {
+        this.rabbitTemplate = rabbitTemplate;
         this.orderService = orderService;
         this.shippingService = shippingService;
         this.paymentService = paymentService;
@@ -78,7 +82,9 @@ public class OrderController {
         String orderId = orderService.createOrderId(orderRequest);
 
         // 카트 비우기
-        cartService.emptyCart();
+//        cartService.emptyCart();
+        rabbitTemplate.convertAndSend("eshop-exchange", "order.placed", new OrderPlaced(orderId));
+
         return ResponseEntity.ok(new OrderResult(orderId, shippingResult.getShippingTrackingId(),
                 shippingResult.getShippingCost(), totalCost));
     }

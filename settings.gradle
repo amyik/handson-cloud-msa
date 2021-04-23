@@ -1,5 +1,7 @@
 rootProject.name = 'eshop'
 
-include 'eshop-backend'
-include 'eshop-cartservice'
-include 'common'
+//include 'eshop-backend'
+//include 'eshop-cartservice'
+//include 'eshop-productservice'
+//include 'eshop-adservice'
+//include 'common'
